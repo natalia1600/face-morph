@@ -5,14 +5,14 @@ import os
 out_w = 200
 out_h = 200
 
-images_dir = r"/home/jfaro/sources/face-morph/images/"
-directory = os.fsencode(r"/home/jfaro/sources/face-morph/images/")
+images_dir = "./images"
+directory = os.fsencode(images_dir)
 cropped_dir = os.path.join(os.getcwd(), 'cropped')
 if not os.path.isdir('cropped'):
     os.makedirs(cropped_dir)
 
 def crop(filename):
-    im = Image.open(images_dir + filename)
+    im = Image.open(os.path.join(images_dir, filename))
     img_w, img_h = im.size
 
     # Set points for cropping

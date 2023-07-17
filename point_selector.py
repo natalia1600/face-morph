@@ -1,6 +1,9 @@
-from point_data import *
-
 import cv2
+import json
+import sys
+import os
+
+from point_data import *
 
 FONT = cv2.FONT_HERSHEY_PLAIN
 FONT_SCALE = 1
@@ -20,18 +23,18 @@ def get_point_label_list() -> list[str]:
     points.extend([f"head-{x}" for x in HEAD ])
     return points
 
-
 class PointSelector:
     def __init__(self, image_path: str, point_labels: dict):
         self.window_name = "Point Selector"
 
         # Setup state
         self.active_point = (0, 0)
+        self.saved_points = {}
         self.active_label = ""
         self.point_labels = point_labels
-        self.selected_points = {}
 
         # Setup image and spawn window
+        self.image_path = image_path
         self.original_image = cv2.imread(image_path)
         self.modified_image = self.original_image.copy()
         self.show()
@@ -52,8 +55,8 @@ class PointSelector:
     def show(self):
         print("redrawing frame")
         self.reset()
-        self.draw_exit_message()
-        self.draw_active_label()
+        self.draw_text("Press enter to continue", (5, 20))
+        self.draw_text(self.active_label, (5, 60))
         self.draw_points()
         cv2.imshow(self.window_name, self.modified_image)
 
@@ -70,25 +73,28 @@ class PointSelector:
         cv2.putText(self.modified_image, text, org, FONT, FONT_SCALE, COLOR_RED, THICKNESS, cv2.LINE_AA, False)
 
 
-    def draw_active_label(self):
-        self.draw_text(self.active_label, (5, 60))
-
-
-    # Image overlays
-    def draw_exit_message(self):
-        self.draw_text("Press enter to continue", (5, 20))
-
-
     def draw_points(self):
         cv2.circle(self.modified_image, self.active_point, 2, COLOR_LIME, -1)
 
-        for p in self.selected_points.values():
+        for p in self.saved_points.values():
             self.modified_image = cv2.circle(self.modified_image, p, 2, COLOR_TEAL, -1)
 
 
     def set_active_label(self, label):
         self.active_label = label
 
+    
+    def save_points_to_json(self):
+        file_name = os.path.splitext(self.image_path)[0]
+        output_path = f"{file_name}.json"
+        output_dict = {}
+
+        # Convert tuples to arrays
+        for (key, (x, y)) in self.saved_points.items():
+            output_dict[key] = [x, y]
+
+        with open(output_path, "w") as outfile:
+            json.dump(output_dict, outfile)
 
     def run(self):
         for label in self.point_labels:
@@ -96,22 +102,27 @@ class PointSelector:
             self.set_active_label(label)
             self.show()
 
-            # Await 'enter' keypress
+            # Await 'enter' keypress to lock in selected point
             cv2.waitKey(0)
-            self.selected_points[self.active_label] = self.active_point
+            self.saved_points[self.active_label] = self.active_point
 
-
-        print(self.selected_points)
+        print(self.saved_points)
 
 
 # TODO: Get corners from image resolution
 
-# Run point selector
 def run():
-    print("Running point selector")
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} IMAGE_FILEPATH")
+        exit(1)
+
+    image_path = sys.argv[1]
     point_labels = get_point_label_list()
-    selector = PointSelector("./images/george.jpg", point_labels)
+
+    selector = PointSelector(image_path, point_labels)
     selector.run()
+    selector.save_points_to_json()
+
 
 # Start main 
 run()
