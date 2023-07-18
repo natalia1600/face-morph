@@ -4,14 +4,7 @@ import sys
 import os
 
 from point_data import *
-
-FONT = cv2.FONT_HERSHEY_PLAIN
-FONT_SCALE = 1
-
-COLOR_RED = (0, 0, 255)
-COLOR_TEAL = (255, 255, 0)
-COLOR_LIME = (0, 255, 0)
-THICKNESS = 1
+from cv_constants import *
 
 def get_point_label_list() -> list[str]:
     points = []
@@ -22,6 +15,7 @@ def get_point_label_list() -> list[str]:
     points.extend([f"nose-{x}" for x in NOSE ])
     points.extend([f"head-{x}" for x in HEAD ])
     return points
+
 
 class PointSelector:
     def __init__(self, image_path: str, point_labels: dict):
@@ -35,7 +29,9 @@ class PointSelector:
 
         # Setup image and spawn window
         self.image_path = image_path
+        print("self.image_path:", self.image_path)
         self.original_image = cv2.imread(image_path)
+        print("self.original_image:", self.original_image)
         self.modified_image = self.original_image.copy()
         self.show()
 
@@ -95,6 +91,7 @@ class PointSelector:
 
         with open(output_path, "w") as outfile:
             json.dump(output_dict, outfile)
+
 
     def run(self):
         for label in self.point_labels:
