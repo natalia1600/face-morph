@@ -22,7 +22,3 @@ def run_delaunay(image_path, points_dict):
 
     cv2.waitKey(0)
 
-
-def get_delaunay(points_array):
-    tri = Delaunay(points_array)
-    return points_array[tri.simplices]

@@ -2,19 +2,9 @@ import cv2
 import json
 import sys
 import os
-
 from point_data import *
 from cv_constants import *
-
-def get_point_label_list() -> list[str]:
-    points = []
-    for side in ["L", "R"]:
-        points.extend([f"eye-{side}-{x}" for x in EYE ])
-        points.extend([f"eyebrow-{side}-{x}" for x in EYEBROW ])
-    points.extend([f"mouth-{x}" for x in MOUTH ])
-    points.extend([f"nose-{x}" for x in NOSE ])
-    points.extend([f"head-{x}" for x in HEAD ])
-    return points
+from utils import *
 
 
 class PointSelector:
@@ -114,8 +104,6 @@ def run():
         exit(1)
 
     image_path = sys.argv[1]
-    point_labels = get_point_label_list()
-
     selector = PointSelector(image_path, point_labels)
     selector.run()
     selector.save_points_to_json()

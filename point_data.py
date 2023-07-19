@@ -1,3 +1,9 @@
+CORNERS = [
+    "tl",
+    "tr",
+    "bl",
+    "br"
+]
 EYE = [
     "center",
     "left",
