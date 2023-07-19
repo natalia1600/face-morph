@@ -2,8 +2,6 @@ import cv2
 import json
 import sys
 import os
-from point_data import *
-from cv_constants import *
 from utils import *
 
 
@@ -95,8 +93,6 @@ class PointSelector:
 
         print(self.saved_points)
 
-
-# TODO: Get corners from image resolution
 
 def run():
     if len(sys.argv) != 2:
