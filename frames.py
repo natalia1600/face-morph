@@ -13,19 +13,23 @@ def get_delaunay_points(dict_frames):
     Args:
         dict_frames (dict): Dictionary of frames where the keys are frame
                             numbers and the values are dictionaries of key 
-                            points.
+                            points (points_dicts).
 
     Returns:
         dict: A dictionary of Delaunay point where the keys are frame numbers
               and values are Delaunay point sets.
     """
-    delaunay_points = {}
+    frames_to_delaunay_points = {}
 
-    for points_dict, frame in dict_frames.items():
-        delaunay_points[frame] = get_delaunay_from_points_dict(points_dict)
-
-    save_dict_to_json(delaunay_points, 'data', 'frame_delaunay_sets.json')
-    return delaunay_points
+    for frame, points_dict in dict_frames.items():
+        frames_to_delaunay_points[frame] = get_delaunay_from_points_dict(points_dict)
+    formatted_frames_to_delaunay_points = {
+        k: v.tolist() for k, v in frames_to_delaunay_points.items()
+    }
+    save_dict_to_json(formatted_frames_to_delaunay_points, 
+                      'data', 
+                      'frame_delaunay_sets.json')
+    return formatted_frames_to_delaunay_points
 
 
 def get_frame_points(points_dict_a, points_dict_b):
@@ -47,7 +51,7 @@ def get_frame_points(points_dict_a, points_dict_b):
         for n in range(TOTAL_FRAMES)
     }
 
-    # Save frames to a JSON file
+    # Save frames to a JSON file in the data folder named frame_points.json
     save_dict_to_json(dict_frames, 'data', 'frame_points.json')
     return dict_frames
 

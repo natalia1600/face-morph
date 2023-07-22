@@ -2,12 +2,14 @@ from cv_constants import *
 from scipy.spatial import Delaunay
 import os
 import json
+from facial_markers import facial_marker_locations
 
-def get_delaunay(points_array):
-    tri = Delaunay(points_array)
-    return points_array[tri.simplices]
-
-
+corner_points = {
+	"corner-tl": [0, 0],
+	"corner-tr": [200, 0],
+	"corner-bl": [0, 200],
+	"corner-br": [200, 200],
+}
 def save_dict_to_json(data_dict, folder_name, file_name):
     folder_path = os.path.join(os.getcwd(), folder_name)
 
@@ -28,10 +30,9 @@ def retrieve_json_data(folder_name, file_name):
         json_data = json.load(file)
         return json_data
     
-
-point_labels = []
-point_labels_dict = retrieve_json_data('data', 'point_labels.json')
-for key, values in point_labels_dict.items():
-    for value in values:
-        point_labels.append(f"{key}-{value}")
+point_labels = [
+    f"{key}-{value}" 
+    for key, values in facial_marker_locations.items() 
+    for value in values
+]
 
