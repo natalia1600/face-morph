@@ -1,12 +1,26 @@
 import numpy as np
 from scipy.spatial import Delaunay
+from utils import *
 import cv2
+import json 
+
 
 COLOR_RED = (0, 0, 255)
 
-def run_delaunay(image_path, points_dict):
+
+def get_delaunay_from_points_dict(points_dict):
+    marker_points = np.array(list(points_dict.values()))
+    return (get_delaunay(marker_points))
+
+
+def get_delaunay(points_array):
+    tri = Delaunay(points_array)
+    return (points_array[tri.simplices])
+
+
+
+def run_delaunay(image_path, points_array):
     window_name = "Delaunay"
-    points_array = np.array(list(points_dict.values()))
 
     # Setup image and spawn window
     image = cv2.imread(image_path)
@@ -22,7 +36,3 @@ def run_delaunay(image_path, points_dict):
 
     cv2.waitKey(0)
 
-
-def get_delaunay(points_array):
-    tri = Delaunay(points_array)
-    return points_array[tri.simplices]
