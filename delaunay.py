@@ -14,13 +14,12 @@ def get_delaunay_from_points_dict(points_dict):
 
 
 def get_delaunay(points_array: np.ndarray):
-    tri = Delaunay(points_array)
+    tri = Delaunay(points_array, incremental=True)
     return points_array[tri.simplices]
 
 # Draw each triangle to image
 def draw_delaunay(image, delaunay_triangles):
     for triangle in delaunay_triangles:
-        print("draw_delaunay tri:", triangle)
         triangle.reshape((-1, 1, 2))
         cv2.polylines(image, [triangle], isClosed=True, color=COLOR_RED, thickness=1)
 
