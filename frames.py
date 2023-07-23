@@ -3,8 +3,6 @@ from utils import *
 from cv_constants import *
 from delaunay import get_delaunay_from_points_dict
 
-TOTAL_FRAMES = 10
-
 def get_delaunay_points(dict_frames):
     """
     Computes the Delaunay points for each frame in a dictionary of frames,
@@ -26,9 +24,7 @@ def get_delaunay_points(dict_frames):
     formatted_frames_to_delaunay_points = {
         k: v.tolist() for k, v in frames_to_delaunay_points.items()
     }
-    save_dict_to_json(formatted_frames_to_delaunay_points, 
-                      'data', 
-                      'frame_delaunay_sets.json')
+
     return formatted_frames_to_delaunay_points
 
 
@@ -38,8 +34,8 @@ def get_frame_points(points_dict_a, points_dict_b):
     of points. Saves resulting dictionary as json.
 
     Args:
-        points_dict_a (dict): A dictionary of key points for the first image.
-        points_dict_b (dict): A dictionary of key points for the second image.
+        `points_dict_a` (dict): A dictionary of key points for the first image.\n
+        `points_dict_b` (dict): A dictionary of key points for the second image.
 
     Returns:
         dict: A dictionary of frames where the keys are frame numbers and the
@@ -70,7 +66,8 @@ def get_midway_points_by_label(points_dict_a, points_dict_b):
     """
     midway_points = {}
     for coord_a, coord_b, label in zip(points_dict_a.values(),
-                                       points_dict_b.values(), point_labels):
+                                       points_dict_b.values(), 
+                                       points_dict_a.keys()):
         # Compute the midway coordinates for each label
         midway_points[label] = midway_coords(coord_a, coord_b)
 

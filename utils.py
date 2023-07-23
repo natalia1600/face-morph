@@ -4,12 +4,7 @@ import os
 import json
 from facial_markers import facial_marker_locations
 
-corner_points = {
-	"corner-tl": [0, 0],
-	"corner-tr": [200, 0],
-	"corner-bl": [0, 200],
-	"corner-br": [200, 200],
-}
+
 def save_dict_to_json(data_dict, folder_name, file_name):
     folder_path = os.path.join(os.getcwd(), folder_name)
 

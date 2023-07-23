@@ -1,35 +1,134 @@
 {
-  "LEFT-EYE-center": [419, 441],
-  "LEFT-EYE-left": [373, 452],
-  "LEFT-EYE-right": [472, 445],
-  "LEFT-EYE-top": [417, 420],
-  "LEFT-EYE-bottom": [422, 459],
-  "RIGHT-EYE-center": [664, 453],
-  "RIGHT-EYE-left": [617, 459],
-  "RIGHT-EYE-right": [710, 469],
-  "RIGHT-EYE-top": [671, 440],
-  "RIGHT-EYE-bottom": [668, 471],
-  "LEFT-EYEBROW-left": [313, 385],
-  "LEFT-EYEBROW-center": [385, 341],
-  "LEFT-EYEBROW-right": [476, 378],
-  "RIGHT-EYEBROW-left": [613, 387],
-  "RIGHT-EYEBROW-center": [702, 375],
-  "RIGHT-EYEBROW-right": [761, 422],
-  "MOUTH-left": [463, 701],
-  "MOUTH-center": [553, 713],
-  "MOUTH-right": [626, 701],
-  "MOUTH-top": [552, 688],
-  "MOUTH-bottom": [546, 748],
-  "NOSE-left": [479, 571],
-  "NOSE-right": [618, 576],
-  "NOSE-bottom": [548, 605],
-  "NOSE-tip": [555, 557],
-  "HEAD-top": [504, 8],
-  "HEAD-chin": [550, 902],
-  "HEAD-left": [277, 585],
-  "HEAD-right": [782, 596],
-  "corner-tl": [0, 0],
-  "corner-tr": [200, 0],
-  "corner-bl": [0, 200],
-  "corner-br": [200, 200]
+    "LEFT-EYE-center": [
+        416,
+        434
+    ],
+    "LEFT-EYE-left": [
+        371,
+        452
+    ],
+    "LEFT-EYE-right": [
+        470,
+        442
+    ],
+    "LEFT-EYE-top": [
+        413,
+        421
+    ],
+    "LEFT-EYE-bottom": [
+        420,
+        460
+    ],
+    "RIGHT-EYE-center": [
+        669,
+        453
+    ],
+    "RIGHT-EYE-left": [
+        616,
+        459
+    ],
+    "RIGHT-EYE-right": [
+        713,
+        470
+    ],
+    "RIGHT-EYE-top": [
+        670,
+        436
+    ],
+    "RIGHT-EYE-bottom": [
+        668,
+        475
+    ],
+    "LEFT-EYEBROW-left": [
+        313,
+        385
+    ],
+    "LEFT-EYEBROW-center": [
+        375,
+        334
+    ],
+    "LEFT-EYEBROW-right": [
+        472,
+        364
+    ],
+    "RIGHT-EYEBROW-left": [
+        604,
+        383
+    ],
+    "RIGHT-EYEBROW-center": [
+        695,
+        370
+    ],
+    "RIGHT-EYEBROW-right": [
+        759,
+        425
+    ],
+    "MOUTH-left": [
+        461,
+        697
+    ],
+    "MOUTH-center": [
+        544,
+        704
+    ],
+    "MOUTH-right": [
+        627,
+        704
+    ],
+    "MOUTH-top": [
+        542,
+        674
+    ],
+    "MOUTH-bottom": [
+        547,
+        749
+    ],
+    "NOSE-left": [
+        476,
+        569
+    ],
+    "NOSE-right": [
+        613,
+        574
+    ],
+    "NOSE-bottom": [
+        548,
+        606
+    ],
+    "NOSE-tip": [
+        548,
+        561
+    ],
+    "HEAD-top": [
+        527,
+        4
+    ],
+    "HEAD-chin": [
+        549,
+        905
+    ],
+    "HEAD-left": [
+        265,
+        554
+    ],
+    "HEAD-right": [
+        778,
+        572
+    ],
+    "corner-tl": [
+        0,
+        0
+    ],
+    "corner-tr": [
+        1000,
+        0
+    ],
+    "corner-bl": [
+        0,
+        1000
+    ],
+    "corner-br": [
+        1000,
+        1000
+    ]
 }

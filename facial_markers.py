@@ -1,8 +1,8 @@
 corner_points = {
 	"corner-tl": [0, 0],
-	"corner-tr": [200, 0],
-	"corner-bl": [0, 200],
-	"corner-br": [200, 200],
+	"corner-tr": [1000, 0],
+	"corner-bl": [0, 1000],
+	"corner-br": [1000, 1000],
 }
 
 facial_marker_locations = {

@@ -1,40 +1,56 @@
-from frames import *
+import os
 import json
+
+import cv2
 import numpy as np
-from frames import get_frame_points, get_delaunay_points
-from delaunay import run_delaunay
-import point_selector
+
+from delaunay import get_delaunay, draw_delaunay
+from cv_constants import DATA_DIR, IMAGE_DIR
+from morph import compute_affine
+
+def load_points_list(filepath):
+    with open(filepath) as json_file:
+        points_dict = json.load(json_file)
+        points_list = list(points_dict.values())
+        return points_list
 
 
-points_dict = {}
-image_paths = []
+a_points_file = os.path.join(DATA_DIR, "john.json")
+b_points_file = os.path.join(DATA_DIR, "paul.json")
+a_image_file = os.path.join(IMAGE_DIR, "john.jpg")
+b_image_file = os.path.join(IMAGE_DIR, "paul.jpg")
 
-for name in IMAGE_NAMES:
-    image_paths.append(os.path.join(IMAGE_DIR, f"{name}.jpg"))
-    with open(os.path.join(DATA_DIR, f"{name}.json")) as json_file:
-        points_dict[name] = json.load(json_file)
+print("Loading point data...")
+a_points_list = load_points_list(a_points_file)
+b_points_list = load_points_list(b_points_file)
 
-# Assume only 2 images for now
-image1 = cv2.imread(image_paths[0])
-image2 = cv2.imread(image_paths[1])
+print("Loading images...")
+image_a = cv2.imread(a_image_file)
+image_b = cv2.imread(b_image_file)
 
-added_image = cv2.addWeighted(image1,0.4,image2,0.1,0)
-cv2.imwrite('combined.png', added_image)
-cv2.imshow('combined.png', added_image)
-cv2.waitKey(0)
+print("Getting tris...")
+a_tri_array = get_delaunay(np.array(a_points_list))
+b_tri_array = get_delaunay(np.array(b_points_list))
+
+# cv2.imshow("image A", image_a)
+# cv2.waitKey(0)
+# cv2.imshow("image B", image_b)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# draw_delaunay(image_a, a_tri_array)
+# cv2.waitKey(0)
+# draw_delaunay(image_b, b_tri_array)
+# cv2.waitKey(0)
+
+print(a_tri_array)
+print(b_tri_array)
+
+for (n, (a_tri, b_tri)) in enumerate(zip(a_tri_array, b_tri_array)):
+    print("morphing triangle a to triangle: ", n)
+    output_image = compute_affine(np.float32([a_tri]), image_a, np.float32([b_tri]), image_b)
+    cv2.imshow("img", output_image)
+    cv2.waitKey(0)
 
 
 
-# iterator_image_names = iter(IMAGE_NAMES)
-
-# for image_name in iterator_image_names:
-#     next_image_name = next(iterator_image_names, None)  # Get the next image name or None if there are no more elements
-#     if next_image_name is None:
-#         break  # Stop the loop if there are no more images
-
-#     dict_frames = get_frame_points(points_dict[image_name], points_dict[next_image_name])
-#     frame_delaunay_sets = get_delaunay_points(dict_frames)
-
-
-# for image_path in image_paths:
-#     run_delaunay(image_path, )

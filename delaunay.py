@@ -13,26 +13,26 @@ def get_delaunay_from_points_dict(points_dict):
     return (get_delaunay(marker_points))
 
 
-def get_delaunay(points_array):
+def get_delaunay(points_array: np.ndarray):
     tri = Delaunay(points_array)
-    return (points_array[tri.simplices])
+    return points_array[tri.simplices]
 
+# Draw each triangle to image
+def draw_delaunay(image, delaunay_triangles):
+    for triangle in delaunay_triangles:
+        print("draw_delaunay tri:", triangle)
+        triangle.reshape((-1, 1, 2))
+        cv2.polylines(image, [triangle], isClosed=True, color=COLOR_RED, thickness=1)
 
+    cv2.imshow("delaunay", image)
 
 def run_delaunay(image_path, points_array):
-    window_name = "Delaunay"
-
     # Setup image and spawn window
     image = cv2.imread(image_path)
     
     # Get triangle coordinates
     delaunay_triangles = get_delaunay(points_array)
-
-    # Draw each triangle to image
-    for triangle in delaunay_triangles:
-        triangle.reshape((-1, 1, 2))
-        cv2.polylines(image, [triangle], isClosed=True, color=COLOR_RED, thickness=1)
-        cv2.imshow(window_name, image)
+    draw_delaunay(image, delaunay_triangles)
 
     cv2.waitKey(0)
 
