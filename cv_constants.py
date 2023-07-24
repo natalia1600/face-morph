@@ -1,6 +1,8 @@
 import cv2
 import os
 
+DEBUG_MODE = False
+
 TOTAL_FRAMES = 10
 
 IMAGE_NAMES = ["john", "paul"]

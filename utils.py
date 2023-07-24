@@ -36,9 +36,13 @@ def draw_triangle(image, triangle, color):
     cv2.polylines(image, [triangle], isClosed=True, color=color, thickness=1)
 
 def wait_space():
+    if not DEBUG_MODE:
+        return
+    
     print("Press space to continue")
     while cv2.waitKey(0) !=32:
         continue
+
     cv2.destroyAllWindows()
 
 def preview(label, img):
