@@ -3,7 +3,7 @@ import json
 import sys
 import os
 from utils import *
-from facial_markers import facial_marker_locations, corner_points
+from facial_markers import corner_points
 
 
 class PointSelector:
@@ -101,8 +101,8 @@ class PointSelector:
             self.set_active_label(label)
             self.show()
 
-            # Await 'enter' keypress to lock in selected point
-            cv2.waitKey(0)
+            # Await 'space' keypress to lock in selected point
+            wait_space()
             self.saved_points[self.active_label] = self.active_point
 
         print(self.saved_points)

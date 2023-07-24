@@ -3,12 +3,17 @@ import json
 
 import cv2
 import numpy as np
-import time
 
-from delaunay import delaunay_points_index_map, draw_delaunay, get_delaunay, get_delaunay_points_from_indices
-from cv_constants import COLOR_LIME, DATA_DIR, IMAGE_DIR
+from delaunay import (
+    delaunay_points_index_map,
+    draw_delaunay,
+    get_delaunay,
+    get_delaunay_points_from_indices,
+)
+from constants import COLOR_LIME, DATA_DIR, IMAGE_DIR
 from morph import compute_affine
 from utils import wait_space
+
 
 # maybe we should stick to dict since we need to map the
 # triangles using the point labels?
@@ -18,11 +23,12 @@ def load_points_list(filepath):
         points_list = list(points_dict.values())
         return points_list
 
+
 def load_points_dict(filepath):
     with open(filepath) as json_file:
         points_dict = json.load(json_file)
         return points_dict
-    
+
 
 a_points_file = os.path.join(DATA_DIR, "john.json")
 b_points_file = os.path.join(DATA_DIR, "paul.json")
@@ -57,12 +63,10 @@ print("Warp tris from A to B...")
 src_image = image_a.copy()
 dst_image = image_a.copy()
 
-for (n, (a_tri, b_tri)) in enumerate(zip(a_tri_array, b_tri_array)):
+for n, (a_tri, b_tri) in enumerate(zip(a_tri_array, b_tri_array)):
     print("Morphing triangle:", n)
     src = src_image.copy()
     output_image = compute_affine(np.int64([a_tri]), src, np.int64([b_tri]), dst_image)
 
 cv2.imshow("modified", dst_image)
 cv2.waitKey(0)
-
-

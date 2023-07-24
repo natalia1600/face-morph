@@ -1,7 +1,8 @@
 import numpy as np
 from utils import *
-from cv_constants import *
+from constants import *
 from delaunay import get_delaunay_from_points_dict
+
 
 def get_delaunay_points(dict_frames):
     """
@@ -10,7 +11,7 @@ def get_delaunay_points(dict_frames):
 
     Args:
         dict_frames (dict): Dictionary of frames where the keys are frame
-                            numbers and the values are dictionaries of key 
+                            numbers and the values are dictionaries of key
                             points (points_dicts).
 
     Returns:
@@ -30,7 +31,7 @@ def get_delaunay_points(dict_frames):
 
 def get_frame_points(points_dict_a, points_dict_b):
     """
-    Computes the key points of each frame by interpolating between two sets 
+    Computes the key points of each frame by interpolating between two sets
     of points. Saves resulting dictionary as json.
 
     Args:
@@ -48,7 +49,7 @@ def get_frame_points(points_dict_a, points_dict_b):
     }
 
     # Save frames to a JSON file in the data folder named frame_points.json
-    save_dict_to_json(dict_frames, 'data', 'frame_points.json')
+    save_dict_to_json(dict_frames, "data", "frame_points.json")
     return dict_frames
 
 
@@ -65,9 +66,9 @@ def get_midway_points_by_label(points_dict_a, points_dict_b):
               the values are lists of coordinates.
     """
     midway_points = {}
-    for coord_a, coord_b, label in zip(points_dict_a.values(),
-                                       points_dict_b.values(), 
-                                       points_dict_a.keys()):
+    for coord_a, coord_b, label in zip(
+        points_dict_a.values(), points_dict_b.values(), points_dict_a.keys()
+    ):
         # Compute the midway coordinates for each label
         midway_points[label] = midway_coords(coord_a, coord_b)
 
@@ -98,4 +99,3 @@ def midway_coords(coord_a, coord_b):
     # Combine x and y values into array representing the coordinates
     new_coordinates = np.column_stack((x_values, y_values))
     return new_coordinates
-

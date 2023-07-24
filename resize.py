@@ -3,6 +3,7 @@ import os
 
 from PIL import Image
 
+
 def crop_and_save(dir, filename, w, h):
     im = Image.open(os.path.join(dir, filename))
     img_w, img_h = im.size
@@ -15,7 +16,7 @@ def crop_and_save(dir, filename, w, h):
 
     # Crop image
     cropped = im.crop((left, top, right, bottom))
-    cropped.save(os.path.join('./cropped/', filename))
+    cropped.save(os.path.join("./cropped/", filename))
 
 
 def main():
@@ -30,15 +31,15 @@ def main():
 
     # Create output dir
     directory = os.fsencode(image_dir)
-    cropped_dir = os.path.join(os.getcwd(), 'cropped')
-    if not os.path.isdir('cropped'):
+    cropped_dir = os.path.join(os.getcwd(), "cropped")
+    if not os.path.isdir("cropped"):
         os.makedirs(cropped_dir)
 
     # Crop all
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         crop_and_save(image_dir, filename, out_w, out_h)
- 
+
 
 if __name__ == "__main__":
     main()
