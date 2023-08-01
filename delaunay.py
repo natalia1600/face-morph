@@ -1,10 +1,31 @@
 import cv2
 import numpy as np
 from scipy.spatial import Delaunay
-
 from utils import *
 from constants import COLOR_RED
 
+
+def get_interpolated_delaunay_tris(a_tri_array, b_tri_array, num_frames):
+    points = []
+    for a_tri, b_tri in zip(a_tri_array, b_tri_array):
+        points.append(np.linspace(a_tri, b_tri, num_frames))
+    print("POINTS", points)
+    points_reshaped = np.reshape(points, (10, -1, 3, 2))
+    return points_reshaped
+
+
+def get_interpolated_marker_points(a_points_list, b_points_list, num_frames):
+    interpolated_marker_points = []
+    for a_point, b_point in zip(a_points_list, b_points_list):
+        x_values = list(np.linspace(a_point[0], b_point[0], num_frames))
+        y_values = list(np.linspace(a_point[1], b_point[1], num_frames))
+        # Combine x and y values into array representing the coordinates
+        new_coordinates = np.column_stack((x_values, y_values))
+        interpolated_marker_points.append(new_coordinates)
+    interpolated_marker_point_array = np.array([[x[frame] 
+                                                 for x in interpolated_marker_points] 
+                                                 for frame in range(num_frames)])
+    return interpolated_marker_point_array
 
 def get_delaunay_from_points_dict(points_dict):
     marker_points = np.array(list(points_dict.values()))

@@ -39,8 +39,16 @@ def draw_triangle(image, triangle, color):
 
 def wait_space():
     print("Press space to continue")
-    while cv2.waitKey(0) != 32:
-        continue
+    while True:
+        key = cv2.waitKey(0) 
+        # If space
+        if key == 32:
+            cv2.destroyAllWindows()
+            break
+        # if esc
+        if key == 27:
+            cv2.destroyAllWindows()
+            exit(1)
 
 
 def preview(label, img):

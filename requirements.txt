@@ -3,6 +3,7 @@ click==8.1.6
 contourpy==1.1.0
 cycler==0.11.0
 fonttools==4.41.0
+imageio==2.31.1
 kiwisolver==1.4.4
 matplotlib==3.7.2
 mypy-extensions==1.0.0
